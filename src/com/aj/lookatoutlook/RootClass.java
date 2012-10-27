@@ -3,6 +3,7 @@ import com.pff.*;
 import java.util.*;
 //From the web...............
 public class RootClass {
+	int cntr=0;
         public static void main(String[] args)
         {
                 new RootClass("/home/chinna/test20121024.pst");
@@ -39,11 +40,14 @@ public class RootClass {
 
                 // and now the emails for this folder
                 if (folder.getContentCount() > 0) {
-                        depth++;
+                        depth++;                        
                         PSTMessage email = (PSTMessage)folder.getNextChild();
                         while (email != null) {
-                                printDepth();
-                                System.out.println("Email: "+email.getSubject());
+                                //printDepth();
+                                System.out.print("Email: "+email.getSubject()+"<<>>");
+                                System.out.println("Case# "+new SubjectLine(email.getSubject()).getCaseNumber());
+                                cntr++;
+                                if(cntr > 100) System.exit(0);                                
                                 email = (PSTMessage)folder.getNextChild();
                         }
                         depth--;
