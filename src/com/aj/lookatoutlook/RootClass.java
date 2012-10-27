@@ -1,7 +1,7 @@
 package com.aj.lookatoutlook;
 import com.pff.*;
 import java.util.*;
-
+//From the web...............
 public class RootClass {
         public static void main(String[] args)
         {
