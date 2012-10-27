@@ -1,6 +1,12 @@
 package com.aj.lookatoutlook;
-import com.pff.*;
-import java.util.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Vector;
+
+import com.pff.PSTException;
+import com.pff.PSTFile;
+import com.pff.PSTFolder;
+import com.pff.PSTMessage;
 //From the web...............
 public class RootClass {
 	int cntr=0;
@@ -9,11 +15,11 @@ public class RootClass {
                 try {
                         PSTFile pstFile = new PSTFile(filename);
                         System.out.println(pstFile.getMessageStore().getDisplayName());
-                        //processFolder(pstFile.getRootFolder());
+                        processFolder(pstFile.getRootFolder());
                 } catch (Exception err) {
                         err.printStackTrace();
                 }
-        }
+        } 
 
         int depth = -1;
         public void processFolder(PSTFolder folder)
@@ -35,15 +41,21 @@ public class RootClass {
                 }
 
                 // and now the emails for this folder
-                if (folder.getContentCount() > 0) {
+                if (folder.getContentCount() > 0 && (folder.getDisplayName().equalsIgnoreCase("inbox")||folder.getDisplayName().equalsIgnoreCase("sent items"))) {
                         depth++;                        
                         PSTMessage email = (PSTMessage)folder.getNextChild();
                         while (email != null) {
                                 //printDepth();
-                                System.out.print("Email: "+email.getSubject()+"<<>>");
-                                System.out.println("Case# "+new SubjectLine(email.getSubject()).getCaseNumber());
+                                //System.out.print("Email: "+email.getSubject()+"<<>>");
+                        		String caseNum=new SubjectLine(email.getSubject()).getCaseNumber();
+                                if(caseNum.equals("03864197")){
+                                Date dateTime=email.getMessageDeliveryTime();
+                                SimpleDateFormat date_format = new SimpleDateFormat("MMM dd,yyyy HH:mm");                                
+                                System.out.println(date_format.format(dateTime));
+                                System.out.println("    "+email.getSubject());
+                                }
                                 cntr++;
-                                if(cntr > 100) System.exit(0);                                
+                                //if(cntr > 100) System.exit(0);                                
                                 email = (PSTMessage)folder.getNextChild();
                         }
                         depth--;
@@ -60,7 +72,10 @@ public class RootClass {
         }
         public static void main(String[] args)
         {
+        		long startTime = System.currentTimeMillis();
                 RootClass rc=new RootClass("/home/chinna/test20121024.pst");
+                long endTime = System.currentTimeMillis();
+                System.out.println("\n\n----Time taken :"+(endTime - startTime)/1000+" seconds.");
                 
         }
 
