@@ -10,6 +10,11 @@ import com.pff.PSTMessage;
 //From the web...............
 public class RootClass {
 	int cntr=0;
+	int cntr=0;
+        public static void main(String[] args)
+        {
+                new RootClass("/home/chinna/test20121024.pst");
+        }
 
         public RootClass(String filename) {
                 try {
