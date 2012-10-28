@@ -16,7 +16,7 @@ public class SubjectLine {
 		}
 		theNum="";		//
 		if(startPos == -1)
-			return "caseNumNotFound";
+			return null;
 		for(int i=startPos;i<theSubjLine.length()-9;i++){
 			char c=theSubjLine.charAt(i);			
 			if(Character.isDigit(c)){

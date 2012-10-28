@@ -1,3 +1,5 @@
+//chinna@ubuntu:~/workspace/LookAtOutlook/bin$ java -cp .:java-libpst.0.7.jar RootClass
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Vector;
@@ -27,8 +29,8 @@ public class RootClass {
                 depth++;
                 // the root folder doesn't have a display name
                 if (depth > 0) {
-                        printDepth();
-                        System.out.println(folder.getDisplayName());
+                        //printDepth();
+                        //System.out.println(folder.getDisplayName());
                 }
 
                 // go through the folders...
@@ -40,21 +42,31 @@ public class RootClass {
                 }
 
                 // and now the emails for this folder
-                if (folder.getContentCount() > 0 && (folder.getDisplayName().equalsIgnoreCase("inbox")||folder.getDisplayName().equalsIgnoreCase("sent items"))) {
+                if (folder.getContentCount() > 0){//&& folder.getDisplayName().equalsIgnoreCase("inbox")){//||folder.getDisplayName().equalsIgnoreCase("sent items"))) {
                         depth++;                        
                         PSTMessage email = (PSTMessage)folder.getNextChild();
                         while (email != null) {
                                 //printDepth();
                                 //System.out.print("Email: "+email.getSubject()+"<<>>");
-                        		String caseNum=new SubjectLine(email.getSubject()).getCaseNumber();
-                                if(caseNum.equals("03864197")){
+                        	    SubjectLine sl=new SubjectLine(email.getSubject());
+                        		String caseNum=sl.getCaseNumber();
+                                if(caseNum!=null){
+                                if(sl.hasProjectName("visanew")){
+                                System.out.println("-------------------------");
+                        		System.out.println("Case.::."+caseNum);
+                        		System.out.println("Folder.::."+folder.getDisplayName());
                                 Date dateTime=email.getMessageDeliveryTime();
                                 SimpleDateFormat date_format = new SimpleDateFormat("MMM dd,yyyy HH:mm");                                
-                                System.out.println(date_format.format(dateTime));
-                                System.out.println("    "+email.getSubject());
+                                System.out.println("Time.::."+date_format.format(dateTime));
+                                System.out.println("Subject.::."+email.getSubject());
+                                System.out.println("From.::."+email.getSentRepresentingName());
+                                System.out.println("To.::."+email.getDisplayTo());                                                                
+                                //System.out.println("Body.::.\n"+email.getBody());
+                                System.out.println("-------------------------\n");
+                                }
                                 }
                                 cntr++;
-                                //if(cntr > 100) System.exit(0);                                
+                                //if(cntr > 200) return;                              
                                 email = (PSTMessage)folder.getNextChild();
                         }
                         depth--;
