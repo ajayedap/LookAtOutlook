@@ -16,7 +16,7 @@ public class SubjectLine {
 				break;
 			}			
 		}
-		theNum="";		
+		theNum="";		//
 		if(startPos == -1)
 			return "caseNumNotFound";
 		for(int i=startPos;i<theSubjLine.length()-9;i++){
