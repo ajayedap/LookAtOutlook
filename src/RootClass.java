@@ -84,7 +84,8 @@ public class RootClass {
         public static void main(String[] args)
         {
         		long startTime = System.currentTimeMillis();
-                RootClass rc=new RootClass("/home/chinna/test20121024.pst");
+                //RootClass rc=new RootClass("/home/chinna/test20121024.pst");
+        		RootClass rc=new RootClass("C:/AJAY/DNB/test20121024.pst");
                 long endTime = System.currentTimeMillis();
                 System.out.println("\n\n----Time taken :"+(endTime - startTime)/1000+" seconds.");
                 

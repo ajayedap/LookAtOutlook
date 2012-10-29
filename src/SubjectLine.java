@@ -1,4 +1,4 @@
-public class SubjectLine {
+ public class SubjectLine {
 	String theSubjLine;
 	public SubjectLine(String val){
 		this.theSubjLine=val;
