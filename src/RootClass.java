@@ -1,5 +1,6 @@
 //chinna@ubuntu:~/workspace/LookAtOutlook/bin$ java -cp .:java-libpst.0.7.jar RootClass
 
+import java.io.FileWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Vector;
@@ -11,9 +12,12 @@ import com.pff.PSTMessage;
 //From the web...............
 public class RootClass {
 	int cntr=0;
+	FileWriter outfile;
 
         public RootClass(String filename) {
+        	
                 try {
+                	outfile=new FileWriter("//9.184.96.31/Ajay/visa.txt");
                         PSTFile pstFile = new PSTFile(filename);
                         System.out.println(pstFile.getMessageStore().getDisplayName());
                         processFolder(pstFile.getRootFolder());
@@ -42,7 +46,7 @@ public class RootClass {
                 }
 
                 // and now the emails for this folder
-                if (folder.getContentCount() > 0){//&& folder.getDisplayName().equalsIgnoreCase("inbox")){//||folder.getDisplayName().equalsIgnoreCase("sent items"))) {
+                if (folder.getContentCount() > 0 && folder.getDisplayName().equalsIgnoreCase("Inbox")){//||folder.getDisplayName().equalsIgnoreCase("sent items"))) {
                         depth++;                        
                         PSTMessage email = (PSTMessage)folder.getNextChild();
                         while (email != null) {
@@ -50,20 +54,27 @@ public class RootClass {
                                 //System.out.print("Email: "+email.getSubject()+"<<>>");
                         	    SubjectLine sl=new SubjectLine(email.getSubject());
                         		String caseNum=sl.getCaseNumber();
+                        		//System.setOut(new PrintStream(new File("//9.184.96.31/Ajay/visa.log")));
+                        		
                                 if(caseNum!=null){
-                                if(sl.hasProjectName("visanew")){
-                                System.out.println("-------------------------");
-                        		System.out.println("Case.::."+caseNum);
-                        		System.out.println("Folder.::."+folder.getDisplayName());
+                                //if(sl.hasProjectName("visa")){
+                                //System.out.println("-------------------------");
+                                outfile.write(caseNum+" <---> "+email.getSubject()+" <--> ");
                                 Date dateTime=email.getMessageDeliveryTime();
-                                SimpleDateFormat date_format = new SimpleDateFormat("MMM dd,yyyy HH:mm");                                
-                                System.out.println("Time.::."+date_format.format(dateTime));
-                                System.out.println("Subject.::."+email.getSubject());
-                                System.out.println("From.::."+email.getSentRepresentingName());
-                                System.out.println("To.::."+email.getDisplayTo());                                                                
-                                //System.out.println("Body.::.\n"+email.getBody());
-                                System.out.println("-------------------------\n");
-                                }
+                              SimpleDateFormat date_format = new SimpleDateFormat("MMM dd,yyyy HH:mm");                                
+                             outfile.write(date_format.format(dateTime)+"\n");
+                                
+//                        		System.out.println("Case.::."+caseNum);
+//                        		System.out.println("Folder.::."+folder.getDisplayName());
+//                                Date dateTime=email.getMessageDeliveryTime();
+//                                SimpleDateFormat date_format = new SimpleDateFormat("MMM dd,yyyy HH:mm");                                
+//                                System.out.println("Time.::."+date_format.format(dateTime));
+//                                System.out.println("Subject.::."+email.getSubject());
+//                                System.out.println("From.::."+email.getSentRepresentingName());
+//                                System.out.println("To.::."+email.getDisplayTo());                                                                
+//                                //System.out.println("Body.::.\n"+email.getBody());
+//                                System.out.println("-------------------------\n");
+                                //}
                                 }
                                 cntr++;
                                 //if(cntr > 200) return;                              
@@ -86,6 +97,7 @@ public class RootClass {
         		long startTime = System.currentTimeMillis();
                 //RootClass rc=new RootClass("/home/chinna/test20121024.pst");
         		RootClass rc=new RootClass("C:/AJAY/DNB/test20121024.pst");
+        		//RootClass rc=new RootClass("C:/AJAY/DNB/Outlook/archive.pst");
                 long endTime = System.currentTimeMillis();
                 System.out.println("\n\n----Time taken :"+(endTime - startTime)/1000+" seconds.");
                 

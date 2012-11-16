@@ -2,7 +2,6 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/J2SE-1.5"/>
-	<classpathentry kind="lib" path="/home/chinna/jarfiles/java-libpst.0.7.jar" sourcepath="/home/chinna/jarfiles/java-libpst-0.7.src.zip"/>
-	<classpathentry kind="lib" path="C:/AJAY/DNB/fun/autoftp/java-libpst.0.6.jar" sourcepath="C:/AJAY/PERSONAL/FACTORY/Java Libraries/java-libpst-0.7.src"/>
+	<classpathentry kind="lib" path="C:/AJAY/PERSONAL/FACTORY/Java Libraries/java-libpst-0.7/java-libpst.0.6.jar" sourcepath="C:/AJAY/PERSONAL/FACTORY/Java Libraries/java-libpst-0.7/java-libpst-0.7.src"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
